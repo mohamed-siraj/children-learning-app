@@ -36,7 +36,7 @@ const StartScreen: React.FunctionComponent = () => {
         <Text style={styles.manyText}> Many Things</Text>
       </View>
       <View style={styles.learningView}>
-        <Text style={styles.manyText}> -- Practically</Text>
+        <Text style={styles.practicallyText}> -- Practically</Text>
       </View>
     </View>
   );
@@ -116,6 +116,11 @@ const styles = StyleSheet.create({
   },
   manyText: {
     fontFamily: 'Poppins_500Medium',
+    fontSize: hp('6%'),
+    bottom : hp('1%')
+  },
+  practicallyText: {
+    fontFamily: 'Poppins_900Black',
     fontSize: hp('6%'),
     bottom : hp('1%')
   },
