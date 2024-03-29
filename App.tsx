@@ -16,8 +16,10 @@ const Stack = createNativeStackNavigator();
 const App: React.FunctionComponent = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="start">
-        <Stack.Screen name="start" component={StartScreen} />
+      <Stack.Navigator initialRouteName="start" screenOptions={{
+        headerShown : false
+      }}>
+        <Stack.Screen name="start" component={StartScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

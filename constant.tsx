@@ -1,2 +1,5 @@
-export const primaryColor = "#e8e4e6";
-export const white = "#ffffff";
+export const COLORS = {
+    primaryColor : '#e8e4e6',
+    white : '#ffffff',
+    yellow : '#f9bc60',
+};
