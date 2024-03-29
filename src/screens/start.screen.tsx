@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { useFonts, Poppins_500Medium, Poppins_900Black } from '@expo-google-fonts/poppins';
+import { useFonts, Poppins_500Medium, Poppins_900Black, Poppins_300Light } from '@expo-google-fonts/poppins';
 import { COLORS } from '../../constant';
 
 const StartScreen: React.FunctionComponent = () => {
@@ -11,7 +11,8 @@ const StartScreen: React.FunctionComponent = () => {
    */
   let [fontsLoaded] = useFonts({
     Poppins_500Medium,
-    Poppins_900Black
+    Poppins_900Black,
+    Poppins_300Light
   });
 
   return (
@@ -25,6 +26,17 @@ const StartScreen: React.FunctionComponent = () => {
         <View style={styles.manView}>
           <Image style={styles.manImage} source={require('../img/male-student.png')} />
         </View>
+      </View>
+      <View style={styles.learningView}>
+        <Image style={styles.girlImage} source={require('../img/school.png')} />
+        <Text style={styles.learningOfText}> Of</Text>
+        <Text style={styles.learningText}> Learning</Text>
+      </View>
+      <View style={styles.learningView}>
+        <Text style={styles.manyText}> Many Things</Text>
+      </View>
+      <View style={styles.learningView}>
+        <Text style={styles.manyText}> -- Practically</Text>
       </View>
     </View>
   );
@@ -81,5 +93,30 @@ const styles = StyleSheet.create({
     height: hp('7%'),
     top: hp('1.7%'),
     left : wp('9%'),
-  }
+  },
+  learningView: {
+    flexDirection: 'row',
+    top: hp('20%'),
+    left: wp('7%')
+  },
+  girlImage : {
+    width: wp('20%'),
+    height: hp('10%'),
+    bottom : hp('2%'),
+  },
+  learningOfText: {
+    fontFamily: 'Poppins_300Light',
+    fontSize: hp('5%'),
+  },
+  learningText: {
+    fontFamily: 'Poppins_500Medium',
+    fontSize: hp('6%'),
+    bottom : hp('1%'),
+    color : COLORS.meroon,
+  },
+  manyText: {
+    fontFamily: 'Poppins_500Medium',
+    fontSize: hp('6%'),
+    bottom : hp('1%')
+  },
 });
