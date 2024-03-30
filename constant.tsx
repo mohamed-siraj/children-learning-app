@@ -3,4 +3,5 @@ export const COLORS = {
     white : '#ffffff',
     yellow : '#f9bc60',
     meroon : '#e16162',
+    black : '#212121',
 };
