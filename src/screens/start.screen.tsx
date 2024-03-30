@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useFonts, Poppins_500Medium, Poppins_900Black, Poppins_300Light } from '@expo-google-fonts/poppins';
+import { ScaledSheet } from 'react-native-size-matters';
 import { COLORS } from '../../constant';
 
 const StartScreen: React.FunctionComponent = () => {
@@ -32,10 +32,10 @@ const StartScreen: React.FunctionComponent = () => {
         <Text style={styles.learningOfText}> Of</Text>
         <Text style={styles.learningText}> Learning</Text>
       </View>
-      <View style={styles.learningView}>
+      <View style={styles.manyThinkView}>
         <Text style={styles.manyText}> Many Things</Text>
       </View>
-      <View style={styles.learningView}>
+      <View style={styles.practicallyView}>
         <Text style={styles.practicallyText}> -- Practically</Text>
       </View>
     </View>
@@ -45,83 +45,97 @@ const StartScreen: React.FunctionComponent = () => {
 export default StartScreen;
 
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     backgroundColor: COLORS.primaryColor
   },
   childrenLearningView: {
-    width: wp('70%'),
-    height: hp('8%'),
+    flexDirection: 'row',
+    height: '70@vs',
     backgroundColor: COLORS.white,
-    left: wp('10%'),
-    top: hp('10%'),
+    top: '55@vs',
+    marginLeft : '30@s',
+    marginRight : '30@s',
     borderRadius: 30,
-    flexDirection: 'row'
   },
   mortarBoard: {
-    width: wp('10%'),
-    height: hp('5%'),
-    top: hp('1.3%'),
-    left: wp('4%'),
+    width: '40@s',
+    height: '40@vs',
+    top: '15@vs',
+    left: '15@s',
   },
   childrenLearningText: {
-    top: hp('1.8%'),
-    left: wp('7%'),
+    top: '21@vs',
+    left: '30@s',
     fontFamily: 'Poppins_900Black',
-    fontSize: hp('2.5%'),
+    fontSize: '18@s',
   },
   aNewWayView: {
     flexDirection: 'row',
-    top: hp('16%'),
-    left: wp('7%')
+    top: '100@vs',
+    marginLeft : '30@s',
   },
   aNewWayText: {
     fontFamily: 'Poppins_500Medium',
-    fontSize: hp('5%'),
+    fontSize: '30@s',
+    top: '15@s',
+    textAlign: 'center',
   },
   manView: {
-    height : hp('8.5%'),
-    width :  wp('30%'),
-    left : wp('8%'),
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    left : '30@s',
     backgroundColor: COLORS.yellow,
     borderBottomLeftRadius : 30,
     borderTopLeftRadius : 30,
+    height: '80@vs',
   },
   manImage : {
-    width: wp('12%'),
-    height: hp('7%'),
-    top: hp('1.7%'),
-    left : wp('9%'),
+    width: '60@s',
+    height: '60@vs',
   },
   learningView: {
     flexDirection: 'row',
-    top: hp('20%'),
-    left: wp('7%')
+    top: '130@vs',
+    marginLeft : '30@s',
   },
   girlImage : {
-    width: wp('20%'),
-    height: hp('10%'),
-    bottom : hp('2%'),
+    width: '60@s',
+    height: '60@vs',
   },
   learningOfText: {
     fontFamily: 'Poppins_300Light',
-    fontSize: hp('5%'),
+    fontSize: '40@s',
+    textAlign: 'center'
   },
   learningText: {
     fontFamily: 'Poppins_500Medium',
-    fontSize: hp('6%'),
-    bottom : hp('1%'),
+    fontSize: '40@s',
+    textAlign: 'center',
     color : COLORS.meroon,
+  },
+  manyThinkView: {
+    flexDirection: 'column',
+    top: '140@vs',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   manyText: {
     fontFamily: 'Poppins_500Medium',
-    fontSize: hp('6%'),
-    bottom : hp('1%')
+    fontSize: '45@s',
+  },
+  practicallyView: {
+    flexDirection: 'column',
+    top: '140@vs',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   practicallyText: {
     fontFamily: 'Poppins_900Black',
-    fontSize: hp('6%'),
-    bottom : hp('1%')
+    fontSize: '45@s',
   },
 });

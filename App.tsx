@@ -17,7 +17,8 @@ const App: React.FunctionComponent = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="start" screenOptions={{
-        headerShown : false
+        headerShown : false,
+        orientation: 'all'
       }}>
         <Stack.Screen name="start" component={StartScreen}/>
       </Stack.Navigator>
