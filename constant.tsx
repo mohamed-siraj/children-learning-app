@@ -6,25 +6,60 @@ export const COLORS = {
     black : '#212121',
 };
 
-export const DRWAER_ITEMS = [
+
+
+export const DRWAER_ITEMS_BEFORE_LOGIN = [
     {
-        name:'Profile',
-        iconType:'Material',
-        iconName:'face-profile'
-    },
-    {
-        name:'Settings',
+        name:'Home',
         iconType:'Feather',
-        iconName:'settings'
+        iconName:'home'
     },
     {
-        name:'Saved Items',
-        iconType:'Material',
-        iconName:'bookmark-check-outline'
+        name:'Birds',
+        iconType:'MaterialCommunityIcons',
+        iconName:'bird'
     },
     {
-        name:'Refer a Friend!',
-        iconType:'FontAwesome5',
-        iconName:'user-friends'
+        name:'Animals',
+        iconType:'FontAwesome5 ',
+        iconName:'wolf-pack-battalion'
+    },
+    {
+        name:'Familes',
+        iconType:'MaterialIcons',
+        iconName:'family-restroom'
+    },
+    {
+        name:'Login / Register',
+        iconType:'AntDesign',
+        iconName:'login'
+    }
+ ];
+
+ export const DRWAER_ITEMS_AFTER_LOGIN = [
+    {
+        name:'Home',
+        iconType:'Feather',
+        iconName:'home'
+    },
+    {
+        name:'Birds',
+        iconType:'MaterialCommunityIcons',
+        iconName:'bird'
+    },
+    {
+        name:'Animals',
+        iconType:'FontAwesome5 ',
+        iconName:'wolf-pack-battalion'
+    },
+    {
+        name:'Familes',
+        iconType:'MaterialIcons',
+        iconName:'family-restroom'
+    },
+    {
+        name:'Create New Item',
+        iconType:'Ionicons',
+        iconName:'create'
     }
  ]
