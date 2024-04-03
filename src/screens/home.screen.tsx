@@ -3,6 +3,7 @@ import { Image, TouchableOpacity, Text, View, Button } from 'react-native';
 import { useFonts, Poppins_500Medium, Poppins_900Black, Poppins_300Light, Poppins_100Thin } from '@expo-google-fonts/poppins';
 import { ScaledSheet, scale } from 'react-native-size-matters';
 import { COLORS } from '../../constant';
+import { Entypo } from '@expo/vector-icons';
 
 /**
  * 
@@ -13,7 +14,7 @@ import { TStartScreen } from '../_type/navigate';
 
 type Props = NativeStackScreenProps<TStartScreen, 'Start'>;
 
-const HomeScreen: React.FunctionComponent<any> = ({navigation} : Props) => {
+const HomeScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
 
   /**
    * font load
@@ -27,7 +28,7 @@ const HomeScreen: React.FunctionComponent<any> = ({navigation} : Props) => {
 
   return (
     <View style={styles.container}>
-      <Text>Home Screen</Text>
+      <Entypo name="menu" size={40} color="black" />
     </View>
   );
 };
@@ -40,5 +41,6 @@ const styles = ScaledSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: COLORS.primaryColor
-  }
+  },
+
 });

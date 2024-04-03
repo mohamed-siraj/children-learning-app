@@ -1,6 +1,8 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+// import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 
 /**
@@ -12,18 +14,19 @@ import HomeScreen from './src/screens/home.screen';
 /**
  * create native navigation
  */
-const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 const App: React.FunctionComponent = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Start" screenOptions={{
-        headerShown : false,
-        orientation: 'all'
+      <Drawer.Navigator initialRouteName="Start" screenOptions={{
+        headerShown : false
       }}>
-        <Stack.Screen name="Start" component={StartScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
+        <Drawer.Screen name="Start" component={StartScreen} />
+
+        
+        <Drawer.Screen name="Home" component={HomeScreen} />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
