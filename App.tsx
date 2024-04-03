@@ -14,6 +14,7 @@ import Header from './src/components/header';
  */
 import StartScreen from './src/screens/start.screen';
 import HomeScreen from './src/screens/home.screen';
+import LoginRegisterScreen from './src/screens/login-register.screen';
 
 /**
  * create native navigation
@@ -41,6 +42,10 @@ const App: React.FunctionComponent = () => {
           }
         }} />
         <Drawer.Screen name="Home" component={HomeScreen} options={{
+          headerShown: true,
+        }}/>
+
+        <Drawer.Screen name="Sign In / Registration" component={LoginRegisterScreen} options={{
           headerShown: true,
         }}/>
       </Drawer.Navigator>
