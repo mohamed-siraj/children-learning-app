@@ -28,7 +28,7 @@ const HomeScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
 
   return (
     <View style={styles.container}>
-      <Entypo name="menu" size={40} color="black" />
+
     </View>
   );
 };

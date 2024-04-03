@@ -7,7 +7,7 @@ import { createDrawerNavigator, DrawerHeaderProps } from '@react-navigation/draw
 /**
  * header
  */
-import { Header } from 'react-native/Libraries/NewAppScreen';
+import Header from './src/components/header';
 
 /**
  * screens
@@ -31,11 +31,14 @@ const App: React.FunctionComponent = () => {
               : options.title !== undefined
                 ? options.title
                 : route.name;
-          return (<Header screen={title} />)
+          return (<Header screenName={title} />)
         }
       }}>
         <Drawer.Screen name="Start" component={StartScreen} options={{
           headerShown: false,
+          drawerItemStyle : {
+            display : 'none'
+          }
         }} />
         <Drawer.Screen name="Home" component={HomeScreen} options={{
           headerShown: true,
