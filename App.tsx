@@ -14,7 +14,9 @@ import Header from './src/components/header';
  */
 import StartScreen from './src/screens/start.screen';
 import HomeScreen from './src/screens/home.screen';
-import LoginRegisterScreen from './src/screens/login-register.screen';
+import LoginScreen from './src/screens/login.screen';
+import { COLORS } from './constant';
+import RegisterScreen from './src/screens/register.screen';
 
 /**
  * create native navigation
@@ -25,6 +27,12 @@ const App: React.FunctionComponent = () => {
   return (
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="Start" screenOptions={{
+        drawerStyle: {
+          backgroundColor: COLORS.meroon,
+        },
+        drawerLabelStyle: {
+          color: COLORS.white
+        },
         header: ({ options, route }: DrawerHeaderProps) => {
           const title =
             options.headerTitle !== undefined
@@ -37,17 +45,23 @@ const App: React.FunctionComponent = () => {
       }}>
         <Drawer.Screen name="Start" component={StartScreen} options={{
           headerShown: false,
-          drawerItemStyle : {
-            display : 'none'
+          drawerItemStyle: {
+            display: 'none'
           }
         }} />
         <Drawer.Screen name="Home" component={HomeScreen} options={{
           headerShown: true,
-        }}/>
+        }} />
 
-        <Drawer.Screen name="Sign In / Registration" component={LoginRegisterScreen} options={{
+        <Drawer.Screen name="Sign In" component={LoginScreen} options={{
           headerShown: true,
-        }}/>
+        }} />
+        <Drawer.Screen name="Registration" component={RegisterScreen} options={{
+          headerShown: true,
+          drawerItemStyle: {
+            display: 'none'
+          }
+        }} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

@@ -4,6 +4,7 @@ export type TStartScreen = {
     Home: undefined
 }; 
 
-export type TSideMenu = {
-    Home: undefined
+export type TLoginRegister = {
+    Registration: undefined,
+    "Sign In": undefined
 }; 

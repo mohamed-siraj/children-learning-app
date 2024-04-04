@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, TouchableOpacity, Text, View, Button } from 'react-native';
+import { Image, TouchableOpacity, Text, View } from 'react-native';
 import { useFonts, Poppins_500Medium, Poppins_900Black, Poppins_300Light, Poppins_100Thin } from '@expo-google-fonts/poppins';
 import { ScaledSheet, scale } from 'react-native-size-matters';
 import { COLORS } from '../../constant';
@@ -13,7 +13,7 @@ import { TStartScreen } from '../_type/navigate';
 
 type Props = NativeStackScreenProps<TStartScreen, 'Start'>;
 
-const StartScreen: React.FunctionComponent<any> = ({navigation} : Props) => {
+const StartScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
 
   /**
    * font load
@@ -72,10 +72,10 @@ const StartScreen: React.FunctionComponent<any> = ({navigation} : Props) => {
             navigation.navigate('Home');
           }}>
             <Text style={{
-                  color: COLORS.white,
-                  fontFamily: 'Poppins_900Black',
-                  fontSize: scale(10),
-                  textAlign: 'center'
+              color: COLORS.white,
+              fontFamily: 'Poppins_900Black',
+              fontSize: scale(10),
+              textAlign: 'center'
             }}>Get Started</Text>
           </TouchableOpacity>
         </View>
@@ -207,7 +207,7 @@ const styles = ScaledSheet.create({
   button: {
     backgroundColor: COLORS.black,
     padding: '30@s',
-    margin:'17@s',
+    margin: '17@s',
     borderRadius: 160
   }
 });
