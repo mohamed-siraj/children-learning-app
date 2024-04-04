@@ -5,6 +5,7 @@ import { ScaledSheet } from 'react-native-size-matters';
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup"
 import { COLORS } from '../../constant';
+import { auth } from '../services/firebase';
 
 /**
  * schema
@@ -32,7 +33,9 @@ const RegisterScreen: React.FunctionComponent<any> = ({ navigation }: Props) => 
   /**
    * form submit
    */
-  const onSubmit : SubmitHandler<TRegister> = data => console.log(data);
+  const onSubmit : SubmitHandler<TRegister> = async (data) => {
+
+  };
 
   /**
    * font load
