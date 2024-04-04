@@ -28,7 +28,12 @@ const HomeScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
 
   return (
     <View style={styles.container}>
-
+      <View style={styles.containerWrap}>
+        <View style={styles.containerRow}><Image style={styles.image} source={require('../img/family.png')} /></View>
+        <View style={styles.containerRow}><Image style={styles.image} source={require('../img/family.png')} /></View>
+        <View style={styles.containerRow}><Image style={styles.image} source={require('../img/family.png')} /></View>
+        <View style={styles.containerRow}><Image style={styles.image} source={require('../img/family.png')} /></View>
+      </View>
     </View>
   );
 };
@@ -41,6 +46,23 @@ const styles = ScaledSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: COLORS.primaryColor
+  },
+  containerWrap: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '150@vs'
+  },
+  containerRow: {
+    backgroundColor: COLORS.white,
+    padding: '20@s',
+    borderRadius: 30,
+    margin: '10@s',
+  },
+  image: {
+    width: '100@vs',
+    height: '100@s',
   },
 
 });
