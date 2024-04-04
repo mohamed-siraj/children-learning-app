@@ -1,46 +1,106 @@
 import React from 'react';
 import { TouchableOpacity, Text, View, Pressable, TextInput } from 'react-native';
-import { useFonts, Poppins_500Medium, Poppins_900Black, Poppins_300Light, Poppins_100Thin } from '@expo-google-fonts/poppins';
+import { useFonts, Poppins_900Black } from '@expo-google-fonts/poppins';
 import { ScaledSheet } from 'react-native-size-matters';
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup"
 import { COLORS } from '../../constant';
+
+/**
+ * schema
+ */
+import RegisterSchema from '../shema/register.shema';
 
 /**
  * 
  * type check
  */
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { TLoginRegister } from '../_type/navigate';
+import { TLoginRegister } from '../_type/navigate.type';
+import { TRegister } from '../_type/form.type';
 
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 type Props = NativeStackScreenProps<TLoginRegister, "Registration">;
 
 const RegisterScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
+  /**
+   * form initialize
+   */
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(RegisterSchema),
+  });
+
+  /**
+   * form submit
+   */
+  const onSubmit : SubmitHandler<TRegister> = data => console.log(data);
 
   /**
    * font load
    */
   let [fontsLoaded] = useFonts({
-    Poppins_500Medium,
     Poppins_900Black,
-    Poppins_300Light,
-    Poppins_100Thin
   });
 
   return (
     <View style={styles.container}>
       <Text style={styles.signInText}>Registration</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Email Address"
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Email Address"
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+          />
+        )}
+        name="email"
       />
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Password"
+      {errors.email && <Text style={styles.envalidText}>{errors.email.message}</Text>}
+
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Password"
+            secureTextEntry={true}
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+          />
+        )}
+        name="password"
       />
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Confirm Password"
+      {errors.password && <Text style={styles.envalidText}>{errors.password.message}</Text>}
+
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Confirm Password"
+            secureTextEntry={true}
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+          />
+        )}
+        name="confirmPassword"
       />
-      <Pressable style={styles.btnLogin} >
+      {errors.confirmPassword && <Text style={styles.envalidText}>{errors.confirmPassword.message}</Text>}
+
+      <Pressable style={styles.btnLogin} onPress={handleSubmit(onSubmit)}>
         <Text style={styles.btnText}>Register</Text>
       </Pressable>
       <TouchableOpacity style={styles.createNewAc} onPress={() => {
@@ -102,5 +162,9 @@ const styles = ScaledSheet.create({
   createNewAc: {
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  envalidText: {
+    color: COLORS.red,
+    textAlign: 'center'
   }
 });

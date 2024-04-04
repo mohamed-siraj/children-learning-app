@@ -9,7 +9,7 @@ import { COLORS } from '../../constant';
  * type check
  */
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { TLoginRegister } from '../_type/navigate';
+import { TLoginRegister } from '../_type/navigate.type';
 
 type Props = NativeStackScreenProps<TLoginRegister, "Sign In">;
 

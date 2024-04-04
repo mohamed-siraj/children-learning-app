@@ -4,6 +4,7 @@ export const COLORS = {
     yellow : '#f9bc60',
     meroon : '#e16162',
     black : '#212121',
+    red: '#FF0000'
 };
 
 
