@@ -1,7 +1,9 @@
-import React from 'react';
-import { TouchableOpacity, Text, View, Pressable, TextInput } from 'react-native';
+import React, { useState } from 'react';
+import { TouchableOpacity, Text, View, Pressable, TextInput, Alert, ActivityIndicator} from 'react-native';
 import { useFonts, Poppins_900Black } from '@expo-google-fonts/poppins';
 import { ScaledSheet } from 'react-native-size-matters';
+import { auth } from '../services/firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { COLORS } from '../../constant';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
@@ -24,6 +26,12 @@ type Props = NativeStackScreenProps<TLoginRegister, "Sign In">;
 const LoginScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
 
   /**
+ * local state
+ */
+  const [loading, setLoading] = useState<boolean>(false);
+
+
+  /**
  * form initialize
  */
   const { control, handleSubmit, formState: { errors } } = useForm({
@@ -33,7 +41,22 @@ const LoginScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
   /**
  * form submit
  */
-  const onSubmit: SubmitHandler<TLogin> = data => console.log(data);
+  const onSubmit: SubmitHandler<TLogin> = async (data) => {
+    if (!loading) {
+      setLoading(true);
+      try {
+        const result = await signInWithEmailAndPassword(auth, data.email, data.password);
+        setLoading(false);
+
+      } catch (error: any) {
+        Alert.alert(
+          `${error.message}`,
+        );
+        setLoading(false);
+      }
+
+    }
+  };
 
   /**
    * font load
@@ -82,7 +105,9 @@ const LoginScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
       />
       {errors.password && <Text style={styles.envalidText}>{errors.password.message}</Text>}
       <Pressable style={styles.btnLogin} onPress={handleSubmit(onSubmit)}>
-        <Text style={styles.btnText}>Login</Text>
+        {
+          loading ? <ActivityIndicator size="small" color={COLORS.white} /> : <Text style={styles.btnText}>Login</Text>
+        }
       </Pressable>
       <TouchableOpacity style={styles.createNewAc} onPress={() => {
         navigation.navigate('Registration');
