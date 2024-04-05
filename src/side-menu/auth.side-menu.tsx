@@ -4,10 +4,7 @@ import { COLORS } from '../../constant';
 /**
  * screen
  */
-import StartScreen from '../screens/start.screen';
 import HomeScreen from '../screens/home.screen';
-import LoginScreen from '../screens/login.screen';
-import RegisterScreen from '../screens/register.screen';
 
 /**
  * header
@@ -39,24 +36,8 @@ const AuthSideMenu: React.FunctionComponent = () => {
                 return (<Header screenName={title} />)
             }
         }}>
-            <Drawer.Screen name="Start" component={StartScreen} options={{
-                headerShown: false,
-                drawerItemStyle: {
-                    display: 'none'
-                }
-            }} />
             <Drawer.Screen name="Home" component={HomeScreen} options={{
                 headerShown: true,
-            }} />
-
-            <Drawer.Screen name="Sign In" component={LoginScreen} options={{
-                headerShown: true,
-            }} />
-            <Drawer.Screen name="Registration" component={RegisterScreen} options={{
-                headerShown: true,
-                drawerItemStyle: {
-                    display: 'none'
-                }
             }} />
         </Drawer.Navigator>
 

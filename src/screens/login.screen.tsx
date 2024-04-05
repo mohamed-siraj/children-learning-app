@@ -9,6 +9,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
 /**
+ * store
+ */
+import { useAppDispatch } from '../store/hooks/storeTypeHook.hooks';
+import { setToken } from '../store/slices/auth.slice';
+/**
  * Schema
  */
 import LoginSchema from '../shema/login.shema';
@@ -24,7 +29,7 @@ import { TLogin } from '../_type/form.type';
 type Props = NativeStackScreenProps<TLoginRegister, "Sign In">;
 
 const LoginScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
-
+  const dispatch = useAppDispatch();
   /**
  * local state
  */
@@ -47,7 +52,10 @@ const LoginScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
       setLoading(true);
       try {
         const result = await signInWithEmailAndPassword(auth, data.email, data.password);
+        const stringResult = JSON.stringify(result);
+        dispatch(setToken(stringResult));
         setLoading(false);
+        navigation.navigate('Home');
 
       } catch (error: any) {
         Alert.alert(

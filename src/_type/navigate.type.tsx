@@ -6,5 +6,6 @@ export type TStartScreen = {
 
 export type TLoginRegister = {
     Registration: undefined,
-    "Sign In": undefined
+    "Sign In": undefined,
+    Home: undefined
 }; 
