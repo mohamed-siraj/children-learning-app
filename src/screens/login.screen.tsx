@@ -42,6 +42,7 @@ const LoginScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
  * form submit
  */
   const onSubmit: SubmitHandler<TLogin> = async (data) => {
+
     if (!loading) {
       setLoading(true);
       try {
