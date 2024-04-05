@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { TouchableOpacity, Text, View, Pressable, TextInput, Alert, ActivityIndicator, Image, ScrollView } from 'react-native';
 import { useFonts, Poppins_900Black } from '@expo-google-fonts/poppins';
 import { ScaledSheet } from 'react-native-size-matters';
-import { auth } from '../services/firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
 import { COLORS } from '../../constant';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
@@ -14,11 +12,11 @@ import { Picker } from '@react-native-picker/picker';
  * store
  */
 import { useAppDispatch } from '../store/hooks/storeTypeHook.hooks';
-import { setToken } from '../store/slices/auth.slice';
+
 /**
  * Schema
  */
-import LoginSchema from '../schema/login.schema';
+import SubmitSchema from '../schema/submit.schema';
 
 /**
  * 
@@ -26,7 +24,8 @@ import LoginSchema from '../schema/login.schema';
  */
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { TLoginRegister } from '../_type/navigate.type';
-import { TLogin } from '../_type/form.type';
+import { TSubmit } from '../_type/form.type';
+
 
 type Props = NativeStackScreenProps<TLoginRegister, "Sign In">;
 
@@ -44,7 +43,7 @@ const AddNewScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
  * form initialize
  */
   const { control, handleSubmit, formState: { errors } } = useForm({
-    resolver: yupResolver(LoginSchema),
+    resolver: yupResolver(SubmitSchema),
   });
 
   /**
@@ -68,24 +67,15 @@ const AddNewScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
   /**
  * form submit
  */
-  const onSubmit: SubmitHandler<TLogin> = async (data) => {
+  const onSubmit: SubmitHandler<TSubmit> = async (data) => {
+    try {
 
-    if (!loading) {
-      setLoading(true);
-      try {
-        const result = await signInWithEmailAndPassword(auth, data.email, data.password);
-        const stringResult = JSON.stringify(result);
-        dispatch(setToken(stringResult));
-        setLoading(false);
-        navigation.navigate('Home');
 
-      } catch (error: any) {
-        Alert.alert(
-          `${error.message}`,
-        );
-        setLoading(false);
-      }
-
+    } catch (error: any) {
+      Alert.alert(
+        `${error.message}`,
+      );
+      setLoading(false);
     }
   };
 
@@ -113,26 +103,10 @@ const AddNewScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
             required: true,
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              style={styles.input}
-              placeholder="Enter Email Address"
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-            />
-          )}
-          name="email"
-        />
-        {errors.email && <Text style={styles.envalidText}>{errors.email.message}</Text>}
-        <Controller
-          control={control}
-          rules={{
-            required: true,
-          }}
-          render={({ field: { onChange, onBlur, value } }) => (
             <View style={styles.input}>
               <Picker
                 selectedValue={onChange}
+                onBlur={onBlur}
                 onValueChange={(itemValue, itemIndex) =>
                   onChange(itemValue)
                 }>
@@ -144,9 +118,9 @@ const AddNewScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
             </View>
 
           )}
-          name="email"
+          name="category"
         />
-        {errors.email && <Text style={styles.envalidText}>{errors.email.message}</Text>}
+        {errors.category && <Text style={styles.envalidText}>{errors.category.message}</Text>}
 
         <Controller
           control={control}
@@ -156,16 +130,34 @@ const AddNewScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
               style={styles.input}
-              placeholder="Enter Password"
-              secureTextEntry={true}
+              placeholder="Enter Pronouns"
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
             />
           )}
-          name="password"
+          name="pronouns"
         />
-        {errors.password && <Text style={styles.envalidText}>{errors.password.message}</Text>}
+        {errors.pronouns && <Text style={styles.envalidText}>{errors.pronouns.message}</Text>}
+
+
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              style={styles.input}
+              placeholder="Enter Sounds"
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
+          name="sounds"
+        />
+        {errors.sounds && <Text style={styles.envalidText}>{errors.sounds.message}</Text>}
         <Pressable style={styles.btnLogin} onPress={handleSubmit(onSubmit)}>
           {
             loading ? <ActivityIndicator size="small" color={COLORS.white} /> : <Text style={styles.btnText}>Submit</Text>
