@@ -8,6 +8,7 @@ import { COLORS } from '../../constant';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import * as ImagePicker from 'expo-image-picker';
+import { Picker } from '@react-native-picker/picker';
 
 /**
  * store
@@ -17,7 +18,7 @@ import { setToken } from '../store/slices/auth.slice';
 /**
  * Schema
  */
-import LoginSchema from '../shema/login.shema';
+import LoginSchema from '../schema/login.schema';
 
 /**
  * 
@@ -119,6 +120,29 @@ const AddNewScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
               onChangeText={onChange}
               value={value}
             />
+          )}
+          name="email"
+        />
+        {errors.email && <Text style={styles.envalidText}>{errors.email.message}</Text>}
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View style={styles.input}>
+              <Picker
+                selectedValue={onChange}
+                onValueChange={(itemValue, itemIndex) =>
+                  onChange(itemValue)
+                }>
+                <Picker.Item label="Family" value="family" />
+                <Picker.Item label="Animals" value="animals" />
+                <Picker.Item label="Birds" value="birds" />
+                <Picker.Item label="Alphabets" value="alphabets" />
+              </Picker>
+            </View>
+
           )}
           name="email"
         />

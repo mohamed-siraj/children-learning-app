@@ -11,7 +11,7 @@ import { auth } from '../services/firebase';
 /**
  * schema
  */
-import RegisterSchema from '../shema/register.shema';
+import RegisterSchema from '../schema/register.schema';
 
 /**
  * 

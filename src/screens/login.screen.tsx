@@ -16,7 +16,7 @@ import { setToken } from '../store/slices/auth.slice';
 /**
  * Schema
  */
-import LoginSchema from '../shema/login.shema';
+import LoginSchema from '../schema/login.schema';
 
 /**
  * 
