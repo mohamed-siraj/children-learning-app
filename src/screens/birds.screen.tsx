@@ -23,7 +23,7 @@ const BirdsScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
   });
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.scrolView}>
       <View style={styles.container}>
         <View style={styles.containerWrap}>
           <View style={styles.containerRow}>
@@ -69,6 +69,9 @@ export default BirdsScreen;
 
 
 const styles = ScaledSheet.create({
+  scrolView: {
+    backgroundColor: COLORS.primaryColor
+  },
   container: {
     flex: 1,
     flexDirection: 'column',

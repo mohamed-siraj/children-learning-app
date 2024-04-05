@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, View, Pressable, TextInput, Alert, ActivityIndicator, Image } from 'react-native';
+import { TouchableOpacity, Text, View, Pressable, TextInput, Alert, ActivityIndicator, Image, ScrollView } from 'react-native';
 import { useFonts, Poppins_900Black } from '@expo-google-fonts/poppins';
 import { ScaledSheet } from 'react-native-size-matters';
 import { auth } from '../services/firebase';
@@ -96,62 +96,61 @@ const AddNewScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
   });
 
   return (
-    <View style={styles.container}>
-      <View style={styles.containerRow} >
-        <TouchableOpacity onPress={() => {
-          pickImage();
-        }}>
-          <Image style={styles.image} source={ image ? {uri : image} : require('../img/photo.png')} />
-        </TouchableOpacity>
+    <ScrollView style={styles.scrolView}>
+      <View style={styles.container}>
+        <View style={styles.containerRow} >
+          <TouchableOpacity onPress={() => {
+            pickImage();
+          }}>
+            <Image style={styles.image} source={image ? { uri: image } : require('../img/photo.png')} />
+          </TouchableOpacity>
 
+        </View>
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              style={styles.input}
+              placeholder="Enter Email Address"
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
+          name="email"
+        />
+        {errors.email && <Text style={styles.envalidText}>{errors.email.message}</Text>}
+
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              style={styles.input}
+              placeholder="Enter Password"
+              secureTextEntry={true}
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
+          name="password"
+        />
+        {errors.password && <Text style={styles.envalidText}>{errors.password.message}</Text>}
+        <Pressable style={styles.btnLogin} onPress={handleSubmit(onSubmit)}>
+          {
+            loading ? <ActivityIndicator size="small" color={COLORS.white} /> : <Text style={styles.btnText}>Submit</Text>
+          }
+        </Pressable>
       </View>
-      <Controller
-        control={control}
-        rules={{
-          required: true,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            style={styles.input}
-            placeholder="Enter Email Address"
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-        name="email"
-      />
-      {errors.email && <Text style={styles.envalidText}>{errors.email.message}</Text>}
 
-      <Controller
-        control={control}
-        rules={{
-          required: true,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            style={styles.input}
-            placeholder="Enter Password"
-            secureTextEntry={true}
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-        name="password"
-      />
-      {errors.password && <Text style={styles.envalidText}>{errors.password.message}</Text>}
-      <Pressable style={styles.btnLogin} onPress={handleSubmit(onSubmit)}>
-        {
-          loading ? <ActivityIndicator size="small" color={COLORS.white} /> : <Text style={styles.btnText}>Login</Text>
-        }
-      </Pressable>
-      <TouchableOpacity style={styles.createNewAc} onPress={() => {
-        navigation.navigate('Registration');
-      }}>
-        <Text>Create New Account</Text>
-      </TouchableOpacity>
-    </View>
+    </ScrollView>
+
   );
 };
 
@@ -159,6 +158,9 @@ export default AddNewScreen;
 
 
 const styles = ScaledSheet.create({
+  scrolView: {
+    backgroundColor: COLORS.primaryColor
+  },
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -171,6 +173,7 @@ const styles = ScaledSheet.create({
     marginBottom: '10@vs',
   },
   image: {
+    marginTop: '40@vs',
     width: '100@vs',
     height: '100@s'
   },
@@ -204,10 +207,6 @@ const styles = ScaledSheet.create({
     paddingLeft: '30@vs',
     borderRadius: 30,
     borderColor: COLORS.meroon
-  },
-  createNewAc: {
-    alignItems: 'center',
-    justifyContent: 'center'
   },
   envalidText: {
     color: COLORS.red,
