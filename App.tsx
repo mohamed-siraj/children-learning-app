@@ -1,11 +1,8 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-
-/**
- * header
- */
-import Header from './src/components/header';
+import { Provider } from 'react-redux';
+import { store } from './src/store/store';
 
 /**
  * navigations
@@ -14,9 +11,11 @@ import AuthSideMenu from './src/side-menu/auth.side-menu';
 
 const App: React.FunctionComponent = () => {
   return (
-    <NavigationContainer>
-      <AuthSideMenu/>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <AuthSideMenu />
+      </NavigationContainer>
+    </Provider>
   );
 }
 
