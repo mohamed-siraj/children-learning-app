@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, View, Pressable, TextInput, Alert, ActivityIndicator } from 'react-native';
+import { TouchableOpacity, Text, View, Pressable, TextInput, Alert, ActivityIndicator, Image } from 'react-native';
 import { useFonts, Poppins_900Black } from '@expo-google-fonts/poppins';
 import { ScaledSheet } from 'react-native-size-matters';
 import { auth } from '../services/firebase';
@@ -7,6 +7,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { COLORS } from '../../constant';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import * as ImagePicker from 'expo-image-picker';
 
 /**
  * store
@@ -29,12 +30,14 @@ import { TLogin } from '../_type/form.type';
 type Props = NativeStackScreenProps<TLoginRegister, "Sign In">;
 
 const AddNewScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
+
+  /** global action */
   const dispatch = useAppDispatch();
   /**
  * local state
  */
   const [loading, setLoading] = useState<boolean>(false);
-
+  const [image, setImage] = useState<string>("");
 
   /**
  * form initialize
@@ -43,6 +46,24 @@ const AddNewScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
     resolver: yupResolver(LoginSchema),
   });
 
+  /**
+   * image
+   */
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
   /**
  * form submit
  */
@@ -76,7 +97,14 @@ const AddNewScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.signInText}>Sign In</Text>
+      <View style={styles.containerRow} >
+        <TouchableOpacity onPress={() => {
+          pickImage();
+        }}>
+          <Image style={styles.image} source={ image ? {uri : image} : require('../img/photo.png')} />
+        </TouchableOpacity>
+
+      </View>
       <Controller
         control={control}
         rules={{
@@ -137,11 +165,14 @@ const styles = ScaledSheet.create({
     justifyContent: 'center',
     backgroundColor: COLORS.primaryColor
   },
-  signInText: {
-    textAlign: 'center',
-    fontFamily: 'Poppins_900Black',
-    fontSize: '25@s',
-    color: COLORS.meroon
+  containerRow: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: '10@vs',
+  },
+  image: {
+    width: '100@vs',
+    height: '100@s'
   },
   btnLogin: {
     textAlign: 'center',
