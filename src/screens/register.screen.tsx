@@ -1,9 +1,10 @@
-import React from 'react';
-import { TouchableOpacity, Text, View, Pressable, TextInput } from 'react-native';
+import React, { useState } from 'react';
+import { TouchableOpacity, Text, View, Pressable, TextInput, ActivityIndicator, Alert } from 'react-native';
 import { useFonts, Poppins_900Black } from '@expo-google-fonts/poppins';
 import { ScaledSheet } from 'react-native-size-matters';
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup"
+import { yupResolver } from "@hookform/resolvers/yup";
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { COLORS } from '../../constant';
 import { auth } from '../services/firebase';
 
@@ -23,6 +24,12 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 type Props = NativeStackScreenProps<TLoginRegister, "Registration">;
 
 const RegisterScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
+
+  /**
+   * local state
+   */
+  const [loading, setLoading] = useState<boolean>(false);
+
   /**
    * form initialize
    */
@@ -33,7 +40,25 @@ const RegisterScreen: React.FunctionComponent<any> = ({ navigation }: Props) => 
   /**
    * form submit
    */
-  const onSubmit : SubmitHandler<TRegister> = async (data) => {
+  const onSubmit: SubmitHandler<TRegister> = async (data) => {
+
+    if (!loading) {
+      setLoading(true);
+      try {
+        const result = await createUserWithEmailAndPassword(auth, data.email, data.password);
+        setLoading(false);
+        Alert.alert(
+          `User account created`,
+        );
+        navigation.navigate('Sign In');
+      } catch (error: any) {
+        Alert.alert(
+          `${error.message}`,
+        );
+        setLoading(false);
+      }
+
+    }
 
   };
 
@@ -104,7 +129,9 @@ const RegisterScreen: React.FunctionComponent<any> = ({ navigation }: Props) => 
       {errors.confirmPassword && <Text style={styles.envalidText}>{errors.confirmPassword.message}</Text>}
 
       <Pressable style={styles.btnLogin} onPress={handleSubmit(onSubmit)}>
-        <Text style={styles.btnText}>Register</Text>
+        {
+          loading ? <ActivityIndicator size="small" color={COLORS.white} /> : <Text style={styles.btnText}>Register</Text>
+        }
       </Pressable>
       <TouchableOpacity style={styles.createNewAc} onPress={() => {
         navigation.navigate('Sign In');
