@@ -4,7 +4,7 @@ import { useFonts, Poppins_900Black } from '@expo-google-fonts/poppins';
 import { ScaledSheet } from 'react-native-size-matters';
 import { COLORS } from '../../constant';
 import { useAppDispatch, useAppSelector } from '../store/hooks/storeTypeHook.hooks';
-import { getPost } from '../store/slices/post.slice';
+import { getPost, removePost } from '../store/slices/post.slice';
 import { pronounsAudio } from '../services/audio.service'
 
 /**
@@ -27,7 +27,8 @@ const FamilyScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
   /**
    * global state
    */
-  const { loading, data } = useAppSelector(state => state.post);
+  const { deleteItem, loading, data } = useAppSelector(state => state.post);
+  const { isAuth } = useAppSelector(state => state.auth);
 
   /**
    * local state
@@ -49,9 +50,12 @@ const FamilyScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
     if (data) {
       setPost(data);
     }
-  }, [data]);
+    if (deleteItem) {
+      dispatch(getPost('family'));
+    }
+  }, [data, deleteItem]);
 
-  const playPronouns = async (pronouns : string) => {
+  const playPronouns = async (pronouns: string) => {
     await pronounsAudio(pronouns);
   }
 
@@ -72,6 +76,18 @@ const FamilyScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
                   </TouchableOpacity>
 
                 </View>
+                {
+                  isAuth && <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+                    <Text style={styles.title}>Delete</Text>
+                    <TouchableOpacity onPress={() => {
+                          dispatch(removePost(doc.id));
+                    }}>
+                      <Image style={styles.imageSound} source={require('../img/remove.png')} />
+                    </TouchableOpacity>
+
+                  </View>
+                }
+
               </View>)
             }) : <View style={styles.containeNoData}><Text style={styles.title}>No data available</Text></View>
           }
