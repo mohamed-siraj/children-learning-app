@@ -9,9 +9,9 @@ import { COLORS } from '../../constant';
  * type check
  */
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { TStartScreen } from '../_type/navigate.type';
+import { THomeScreen } from '../_type/navigate.type';
 
-type Props = NativeStackScreenProps<TStartScreen, 'Start'>;
+type Props = NativeStackScreenProps<THomeScreen, 'Home'>;
 
 const HomeScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
 
@@ -25,22 +25,45 @@ const HomeScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.containerWrap}>
-        <View style={styles.containerRow}>
-          <Image style={styles.image} source={require('../img/family.png')} />
-          <Text style={styles.title}>Family</Text>
-        </View>
-        <View style={styles.containerRow}>
-          <Image style={styles.image} source={require('../img/lion.png')} />
-          <Text style={styles.title}>Animals</Text>
-        </View>
-        <View style={styles.containerRow}>
-          <Image style={styles.image} source={require('../img/bird.png')} />
-          <Text style={styles.title}>Birds</Text>
-        </View>
-        <View style={styles.containerRow}>
-          <Image style={styles.image} source={require('../img/tamil.png')} />
-          <Text style={styles.title}>Alphabets</Text>
-        </View>
+        <TouchableOpacity onPress={() => {
+          navigation.navigate('Familiy');
+        }}>
+          <View style={styles.containerRow}>
+            <Image style={styles.image} source={require('../img/family.png')} />
+            <Text style={styles.title}>Family</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => {
+          navigation.navigate('Animals');
+        }}>
+
+          <View style={styles.containerRow}>
+            <Image style={styles.image} source={require('../img/lion.png')} />
+            <Text style={styles.title}>Animals</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => {
+          navigation.navigate('Birds');
+        }}>
+          <View style={styles.containerRow}>
+            <Image style={styles.image} source={require('../img/bird.png')} />
+            <Text style={styles.title}>Birds</Text>
+          </View>
+
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => {
+          navigation.navigate('Alphabets');
+        }}>
+          <View style={styles.containerRow}>
+            <Image style={styles.image} source={require('../img/tamil.png')} />
+            <Text style={styles.title}>Alphabets</Text>
+          </View>
+
+        </TouchableOpacity>
+
       </View>
     </View>
   );

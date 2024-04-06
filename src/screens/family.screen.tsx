@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, TouchableOpacity, Text, View, ScrollView } from 'react-native';
+import { Image, Text, View, ScrollView } from 'react-native';
 import { useFonts, Poppins_900Black } from '@expo-google-fonts/poppins';
 import { ScaledSheet } from 'react-native-size-matters';
 import { COLORS } from '../../constant';
@@ -29,34 +29,6 @@ const FamilyScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
           <View style={styles.containerRow}>
             <Image style={styles.image} source={require('../img/family.png')} />
             <Text style={styles.title}>Family</Text>
-          </View>
-          <View style={styles.containerRow}>
-            <Image style={styles.image} source={require('../img/lion.png')} />
-            <Text style={styles.title}>Animals</Text>
-          </View>
-          <View style={styles.containerRow}>
-            <Image style={styles.image} source={require('../img/bird.png')} />
-            <Text style={styles.title}>Birds</Text>
-          </View>
-          <View style={styles.containerRow}>
-            <Image style={styles.image} source={require('../img/tamil.png')} />
-            <Text style={styles.title}>Alphabets</Text>
-          </View>
-          <View style={styles.containerRow}>
-            <Image style={styles.image} source={require('../img/bird.png')} />
-            <Text style={styles.title}>Birds</Text>
-          </View>
-          <View style={styles.containerRow}>
-            <Image style={styles.image} source={require('../img/tamil.png')} />
-            <Text style={styles.title}>Alphabets</Text>
-          </View>
-          <View style={styles.containerRow}>
-            <Image style={styles.image} source={require('../img/bird.png')} />
-            <Text style={styles.title}>Birds</Text>
-          </View>
-          <View style={styles.containerRow}>
-            <Image style={styles.image} source={require('../img/tamil.png')} />
-            <Text style={styles.title}>Alphabets</Text>
           </View>
         </View>
       </View>

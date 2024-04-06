@@ -23,10 +23,10 @@ import LoginSchema from '../schema/login.schema';
  * type check
  */
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { TLoginRegister } from '../_type/navigate.type';
+import { TLoginRegisterScreen } from '../_type/navigate.type';
 import { TLogin } from '../_type/form.type';
 
-type Props = NativeStackScreenProps<TLoginRegister, "Sign In">;
+type Props = NativeStackScreenProps<TLoginRegisterScreen, "Sign In">;
 
 const LoginScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
   const dispatch = useAppDispatch();

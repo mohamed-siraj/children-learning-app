@@ -4,8 +4,16 @@ export type TStartScreen = {
     Home: undefined
 }; 
 
-export type TLoginRegister = {
+export type TLoginRegisterScreen  = {
     Registration: undefined,
     "Sign In": undefined,
     Home: undefined
+}; 
+
+export type THomeScreen  = {
+    Home: undefined,
+    Familiy: undefined,
+    Animals: undefined,
+    Birds: undefined,
+    Alphabets: undefined,
 }; 

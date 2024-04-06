@@ -12,6 +12,11 @@ export const getToken = createAsyncThunk('auth/getToken', async () => {
     return token;
 });
 
+export const remove = createAsyncThunk('auth/removew', async () => {
+    await AsyncStorage.removeItem('token');
+    return true;
+});
+
 const authSlice = createSlice({
     name: "auth",
     initialState: {
@@ -41,14 +46,31 @@ const authSlice = createSlice({
             state.isAuth = false
         })
         builder.addCase(getToken.fulfilled, (state, action) => {
-            if(action.payload){
+            if (action.payload) {
                 state.token = String(action.payload);
                 state.isAuth = true;
-            }else{
+            } else {
                 state.isAuth = false;
             }
         })
         builder.addCase(getToken.rejected, state => {
+            state.isAuth = false
+        })
+
+        /**
+         * remove token
+         */
+        builder.addCase(remove.pending, state => {
+            state.isAuth = false
+        })
+        builder.addCase(remove.fulfilled, (state, action) => {
+            if (action.payload) {
+                state.isAuth = false;
+            } else {
+                state.isAuth = true;
+            }
+        })
+        builder.addCase(remove.rejected, state => {
             state.isAuth = false
         })
     }

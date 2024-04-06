@@ -17,11 +17,11 @@ import RegisterSchema from '../schema/register.schema';
  * 
  * type check
  */
-import { TLoginRegister } from '../_type/navigate.type';
+import { TLoginRegisterScreen } from '../_type/navigate.type';
 import { TRegister } from '../_type/form.type';
 
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-type Props = NativeStackScreenProps<TLoginRegister, "Registration">;
+type Props = NativeStackScreenProps<TLoginRegisterScreen, "Registration">;
 
 const RegisterScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
 
