@@ -26,6 +26,7 @@ import SubmitSchema from '../schema/submit.schema';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { TLoginRegister } from '../_type/navigate.type';
 import { TSubmit } from '../_type/form.type';
+import { writePostData } from '../services/firebaseDatabase.service';
 
 
 type Props = NativeStackScreenProps<TLoginRegister, "Sign In">;
@@ -59,13 +60,8 @@ const AddNewScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
       quality: 1,
     });
 
-    console.log(result);
-
     if (!result.canceled) {
       setImage(result.assets[0].uri);
-      const url : any = await uploadToFirebase(image);
-      console.log(url?.downloadUrl);
-
     }
   };
   /**
@@ -74,6 +70,23 @@ const AddNewScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
   const onSubmit: SubmitHandler<TSubmit> = async (data) => {
     try {
       
+      /**
+       * check exist image
+       */
+      if(!image){
+        Alert.alert(
+          `Please select an image`,
+        );
+        return;
+      }
+
+      const url : any = await uploadToFirebase(image);
+
+      await writePostData(data.category, data.pronouns, url?.downloadUrl, data.sounds);
+
+      Alert.alert(
+        `Data Successfully Created`,
+      );
 
     } catch (error: any) {
       Alert.alert(
