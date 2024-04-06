@@ -21,12 +21,12 @@ import SubmitSchema from '../schema/submit.schema';
  * type check
  */
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { TLoginRegister } from '../_type/navigate.type';
+import { TLoginRegisterScreen } from '../_type/navigate.type';
 import { TSubmit } from '../_type/form.type';
 
 
 
-type Props = NativeStackScreenProps<TLoginRegister, "Sign In">;
+type Props = NativeStackScreenProps<TLoginRegisterScreen, "Sign In">;
 
 const AddNewScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
 

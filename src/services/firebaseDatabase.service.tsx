@@ -18,5 +18,9 @@ export const readPostData = async (category: string) => {
 
     const posts = await getDocs(q);
 
+    posts.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data()}`);
+    });
+
     return posts;
 };
