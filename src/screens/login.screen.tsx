@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TouchableOpacity, Text, View, Pressable, TextInput, Alert, ActivityIndicator} from 'react-native';
 import { useFonts, Poppins_900Black } from '@expo-google-fonts/poppins';
 import { ScaledSheet } from 'react-native-size-matters';
-import { auth } from '../services/firebase';
+import { auth } from '../services/firebase.service';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { COLORS } from '../../constant';
 import { yupResolver } from "@hookform/resolvers/yup";

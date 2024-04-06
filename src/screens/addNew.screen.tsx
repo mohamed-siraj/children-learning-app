@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import * as ImagePicker from 'expo-image-picker';
 import { Picker } from '@react-native-picker/picker';
+import { uploadToFirebase } from '../services/firebaseFileUpload';
 
 /**
  * store
@@ -62,6 +63,9 @@ const AddNewScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
+      const url : any = await uploadToFirebase(image);
+      console.log(url?.downloadUrl);
+
     }
   };
   /**
@@ -69,7 +73,7 @@ const AddNewScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
  */
   const onSubmit: SubmitHandler<TSubmit> = async (data) => {
     try {
-
+      
 
     } catch (error: any) {
       Alert.alert(

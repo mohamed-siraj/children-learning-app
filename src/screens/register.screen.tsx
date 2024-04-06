@@ -6,7 +6,7 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { COLORS } from '../../constant';
-import { auth } from '../services/firebase';
+import { auth } from '../services/firebase.service';
 
 /**
  * schema
