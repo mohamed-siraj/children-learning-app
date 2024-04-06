@@ -44,7 +44,7 @@ const AddNewScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
   /**
  * form initialize
  */
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const { control, handleSubmit, formState: { errors }, reset } = useForm({
     resolver: yupResolver(SubmitSchema),
   });
 
@@ -80,6 +80,8 @@ const AddNewScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
         return;
       }
 
+      setLoading(true);
+
       const url : any = await uploadToFirebase(image);
 
       await writePostData(data.category, data.pronouns, url?.downloadUrl, data.sounds);
@@ -87,6 +89,12 @@ const AddNewScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
       Alert.alert(
         `Data Successfully Created`,
       );
+
+      reset();
+
+      setImage('');
+
+      setLoading(false);
 
     } catch (error: any) {
       Alert.alert(
@@ -122,7 +130,7 @@ const AddNewScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
           render={({ field: { onChange, onBlur, value } }) => (
             <View style={styles.input}>
               <Picker
-                selectedValue={onChange}
+                selectedValue={value}
                 onBlur={onBlur}
                 onValueChange={(itemValue, itemIndex) =>
                   onChange(itemValue)
