@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import * as ImagePicker from 'expo-image-picker';
 import { Picker } from '@react-native-picker/picker';
-import { uploadToFirebase } from '../services/firebaseFileUpload';
+import { uploadToFirebase } from '../services/firebaseFileUpload.service';
 
 /**
  * store
