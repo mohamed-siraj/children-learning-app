@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, TouchableOpacity, Text, View, ScrollView } from 'react-native';
 import { useFonts, Poppins_900Black } from '@expo-google-fonts/poppins';
 import { ScaledSheet } from 'react-native-size-matters';
 import { COLORS } from '../../constant';
-
+import { useAppDispatch, useAppSelector } from '../store/hooks/storeTypeHook.hooks';
+import { getPost } from '../store/slices/post.slice';
+import { animalSounds, pronounsAudio } from '../services/audio.service'
 /**
  * 
  * type check
@@ -16,48 +18,74 @@ type Props = NativeStackScreenProps<TStartScreen, 'Start'>;
 const BirdsScreen: React.FunctionComponent<any> = ({ navigation }: Props) => {
 
   /**
+* global acion
+*/
+  const dispatch = useAppDispatch();
+
+  /**
+   * global state
+   */
+  const { loading, data } = useAppSelector(state => state.post);
+
+  /**
+   * local state
+   */
+  const [post, setPost] = useState<Array<any>>([]);
+
+  /**
    * font load
    */
   let [fontsLoaded] = useFonts({
     Poppins_900Black,
   });
 
+  useEffect(() => {
+    dispatch(getPost('birds'));
+  }, [])
+
+  useEffect(() => {
+    if (data) {
+      setPost(data);
+    }
+  }, [data]);
+
+  const playPronouns = async (pronouns: string) => {
+    await pronounsAudio(pronouns);
+  }
+
+  const playSounds = async (sound: string) => {
+    await animalSounds(sound);
+  }
+
   return (
     <ScrollView style={styles.scrolView}>
       <View style={styles.container}>
         <View style={styles.containerWrap}>
-          <View style={styles.containerRow}>
-            <Image style={styles.image} source={require('../img/family.png')} />
-            <Text style={styles.title}>Family</Text>
-          </View>
-          <View style={styles.containerRow}>
-            <Image style={styles.image} source={require('../img/lion.png')} />
-            <Text style={styles.title}>Animals</Text>
-          </View>
-          <View style={styles.containerRow}>
-            <Image style={styles.image} source={require('../img/bird.png')} />
-            <Text style={styles.title}>Birds</Text>
-          </View>
-          <View style={styles.containerRow}>
-            <Image style={styles.image} source={require('../img/tamil.png')} />
-            <Text style={styles.title}>Alphabets</Text>
-          </View>
-          <View style={styles.containerRow}>
-            <Image style={styles.image} source={require('../img/bird.png')} />
-            <Text style={styles.title}>Birds</Text>
-          </View>
-          <View style={styles.containerRow}>
-            <Image style={styles.image} source={require('../img/tamil.png')} />
-            <Text style={styles.title}>Alphabets</Text>
-          </View>
-          <View style={styles.containerRow}>
-            <Image style={styles.image} source={require('../img/bird.png')} />
-            <Text style={styles.title}>Birds</Text>
-          </View>
-          <View style={styles.containerRow}>
-            <Image style={styles.image} source={require('../img/tamil.png')} />
-            <Text style={styles.title}>Alphabets</Text>
-          </View>
+          {
+            data.length !== 0 ? data.map((doc) => {
+              return (<View key={doc.id} style={styles.containerRow}>
+                <Image style={styles.image} source={{ uri: doc.data().imageUrl }} />
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+                  <Text style={styles.title}>Pronouns</Text>
+                  <TouchableOpacity onPress={() => {
+                    playPronouns(doc.data().pronouns);
+                  }}>
+                    <Image style={styles.imageSound} source={require('../img/sound.png')} />
+                  </TouchableOpacity>
+
+                </View>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+                  <Text style={styles.title}>Sound</Text>
+                  <TouchableOpacity onPress={() => {
+                    playSounds(doc.data().sounds);
+                  }}>
+                    <Image style={styles.imageSound} source={require('../img/sound.png')} />
+                  </TouchableOpacity>
+
+                </View>
+              </View>)
+            }) : <View style={styles.containeNoData}><Text style={styles.title}>No data available</Text></View>
+          }
         </View>
       </View>
     </ScrollView>
@@ -90,9 +118,18 @@ const styles = ScaledSheet.create({
     borderRadius: 30,
     margin: '10@s',
   },
+  containeNoData: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   image: {
     width: '100@vs',
     height: '100@s',
+  },
+  imageSound: {
+    marginTop: '5@vs',
+    width: '30@vs',
+    height: '30@s',
   },
   title: {
     textAlign: 'center',
