@@ -10,7 +10,7 @@ export const pronounsAudio = async (text : string) => {
 
 export const animalSounds = async (name : string) => {
     const sound = new Audio.Sound()
-    await sound.loadAsync({ uri: `https://www.google.com/logos/fnbx/animal_sounds/${name}.mp3` });
+    await sound.loadAsync({ uri: `https://www.google.com/logos/fnbx/animal_sounds/${name.toLowerCase()}.mp3` });
 
     await sound.playAsync();
 };
