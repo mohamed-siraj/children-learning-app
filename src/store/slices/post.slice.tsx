@@ -1,11 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { readPostData } from "../../services/firebaseDatabase.service";
+import { deletePostData, readPostData } from "../../services/firebaseDatabase.service";
 import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 
 export const getPost = createAsyncThunk('auth/getPost', async (category : string) => {
     const post = await readPostData(category);
     return post.docs;
+});
+
+export const removePost = createAsyncThunk('auth/removePost', async (id : string) => {
+    return await deletePostData(id);
 });
 
 // Define a type for the slice state
