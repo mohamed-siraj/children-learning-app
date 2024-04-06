@@ -16,11 +16,9 @@ export const uploadToFirebase = async (uri : string) => {
       "state_changed",
       (snapshot : any) => {
         const progress =(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log(progress)
       },
       (error : any) => {
         // Handle unsuccessful uploads
-        console.log(error);
         reject(error);
       },
       async () => {
